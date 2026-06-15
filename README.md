@@ -1,4 +1,3 @@
-Here is your text with the **em dash separators (`---`) removed** while keeping everything else unchanged:
 
 # Molecular Phylogenetic Analysis and Species Database of Campus Flora at Hislop College, Nagpur
 
@@ -291,5 +290,3 @@ If you use this repository in academic work, please cite:
 This project is released under the MIT License.
 
 See the LICENSE file for details.
-
-One additional recommendation for GitHub: instead of removing all separators, consider replacing the `---` lines with blank lines only. GitHub README files generally look cleaner and more professional with section headings (`##`) alone rather than many horizontal rules.
