@@ -350,7 +350,7 @@ If you use this repository, dataset, or analytical workflow in academic work, pl
 Samrudhi Sharma (2026). Molecular Phylogenetic Analysis and Species Database of
 Campus Flora at Hislop College, Nagpur. M.Sc. Bioinformatics Project.
 Rajiv Gandhi Institute of IT and Biotechnology, Pune, Maharashtra, India.
-GitHub: https://github.com/YOUR_USERNAME/PhylogenyFlora
+GitHub: https://github.com/samrudhisharma/PhylogenyFlora
 ```
 
 ---
