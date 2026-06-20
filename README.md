@@ -1,10 +1,8 @@
 # Molecular Phylogenetic Analysis and Species Database of Campus Flora at Hislop College, Nagpur
 
-## Maximum Likelihood Phylogenetic Tree of Campus Flora
+# Maximum Likelihood Phylogenetic Tree of Campus Flora
 
 ![Maximum Likelihood Phylogenetic Tree](figures/final_phylogenetic_tree_landscape.png)
-
----
 
 ## Overview
 
@@ -58,6 +56,69 @@ The campus flora represents a taxonomically diverse assemblage spanning multiple
 | Tree Format | Newick (.nwk) |
 | Taxonomic Coverage | Multiple families and genera |
 
+### Metadata Variables
+
+| Variable | Description |
+|----------|-------------|
+| Botanical Name | Accepted scientific binomial |
+| Family | Plant family classification |
+| Genus | Genus-level classification |
+| Species Epithet | Species-level identifier |
+| Taxonomic Rank | Hierarchical classification |
+| Phylogenetic Placement | Clade assignment from ML tree |
+
+## Methodology
+
+### 1. Plant Survey and Taxonomic Identification
+
+A systematic field survey was conducted across the Hislop College campus to document all identifiable plant species. Taxonomic identification was verified using standard botanical references and herbarium resources. Species selection prioritized broad family-level representation.
+
+### 2. Molecular Data Collection
+
+Multi-gene molecular marker sequences were retrieved from public biological sequence repositories. Data were curated to ensure sequence quality, taxonomic accuracy, and consistency across all 59 target species and the outgroup taxon, Cycas revoluta.
+
+### 3. Multiple Sequence Alignment
+
+Retrieved sequences were subjected to multiple sequence alignment to identify and verify homologous nucleotide positions across all taxa. Alignment quality was assessed prior to phylogenetic analysis.
+
+### 4. Phylogenetic Reconstruction
+
+Evolutionary relationships were inferred using Maximum Likelihood (ML) phylogenetic methods applied to the multi-gene aligned dataset. The ML framework was selected for its statistical robustness and suitability for multi-gene molecular datasets.
+
+### 5. Tree Rooting
+
+The resulting phylogenetic tree was rooted using Cycas revoluta (Cycadaceae) as the designated outgroup, establishing correct evolutionary polarity and directionality across all ingroup lineages.
+
+### 6. Phylogenetic Visualization
+
+Tree visualization, annotation, and figure generation were performed in R using:
+
+| Package | Role |
+|----------|------|
+| ggtree | Phylogenetic tree plotting and annotation |
+| ape | Tree manipulation and Newick import |
+| phytools | Tree utilities and evolutionary analysis |
+| ggplot2 | Graphical aesthetic customization |
+| dplyr | Metadata handling and data wrangling |
+
+A rooted Maximum Likelihood phylogenetic tree was generated with family-level color coding to facilitate visualization of major phylogenetic groupings and biodiversity patterns.
+
+### 7. Species Database Development
+
+A normalized MySQL relational database was designed and implemented to store, manage, and query all taxonomic and biodiversity information associated with documented campus flora. The schema supports extensible biodiversity data management for future studies.
+
+## Computational Methods and Software
+
+| Category | Tool / Software |
+|----------|-----------------|
+| Phylogenetic Analysis | Maximum Likelihood (ML) |
+| Programming Language | R (>= 4.5) |
+| Tree Visualization | ggtree (Bioconductor) |
+| Evolutionary Utilities | ape, phytools |
+| Data Manipulation | dplyr, ggplot2 |
+| Database Management | MySQL, SQL |
+| Version Control | Git, GitHub |
+
 ## Repository Structure
 
 ```text
@@ -78,6 +139,16 @@ PhylogenyFlora/
 └── .gitignore
 ```
 
+## Installation
+
+### Prerequisites
+
+Ensure the following are installed on your system:
+
+- R (>= 4.5)
+- MySQL (>= 8.0)
+- Git
+
 ## Usage
 
 ### Phylogenetic Analysis and Visualization
@@ -88,29 +159,66 @@ source("scripts/main_analysis.R")
 
 Outputs generated:
 
-- Maximum Likelihood phylogenetic tree with family-level color coding
-- Rooted phylogenetic tree using *Cycas revoluta* as outgroup
-- Publication-quality landscape PNG figure
-- Family-level evolutionary visualization
-
-### Generated Figure
-
-![Maximum Likelihood Phylogenetic Tree](figures/final_phylogenetic_tree_landscape.png)
+- Maximum Likelihood phylogenetic tree with family-level color coding (figures/final_phylogenetic_tree_landscape.png)
+- Family-level clade visualization
+- Publication-quality PNG figures suitable for thesis, poster, or manuscript submission
 
 ## Results and Key Findings
 
 | Outcome | Description |
-|----------|----------|
+|----------|-------------|
 | Phylogenetic Reconstruction | ML tree successfully resolved evolutionary relationships among all 59 campus plant species |
 | Family-Level Clades | Major angiosperm family groupings identified and color-annotated on the phylogenetic tree |
-| Outgroup Rooting | Cycas revoluta correctly resolved as sister to all ingroup taxa |
+| Outgroup Rooting | Cycas revoluta correctly resolved as sister to all ingroup taxa, confirming tree directionality |
 | Tree Visualization | Publication-quality landscape phylogenetic tree generated with family-level color coding |
-| Biodiversity Database | Normalized MySQL database developed |
+| Biodiversity Database | Normalized MySQL database developed with species, taxonomic, and phylogenetic data tables |
 | Reproducible Workflow | End-to-end bioinformatics pipeline documented and version-controlled |
+
+The phylogenetic analysis revealed that campus plant diversity spans multiple major angiosperm lineages, with clear family-level clustering consistent with established molecular systematics. The resulting tree and associated database together constitute a structured biodiversity resource for the Hislop College campus ecosystem.
+
+## Database Component
+
+### MySQL Species Database
+
+The plantdb.sql schema implements a normalized relational database for campus flora biodiversity management.
+
+## Scientific Significance
+
+This project contributes to biodiversity science and computational biology in several respects:
+
+- Biodiversity Documentation
+- Evolutionary Framework
+- Database Infrastructure
+- Methodological Integration
+- Training in Reproducible Science
+
+## Reproducibility
+
+All analyses can be reproduced by cloning this repository, installing the documented R dependencies, and executing main_analysis.R.
+
+## Future Directions
+
+- DNA Barcoding
+- Chloroplast Genome Phylogenetics
+- Phylogenetic Diversity Metrics
+- Species Richness Estimation
+- Comparative Campus Biodiversity Studies
+- Interactive Phylogenetic Tree Dashboard
+- GIS-Based Biodiversity Mapping
+- Web-Based Biodiversity Portal
+- Automated Species Information Retrieval
+
+## Citation
+
+Samrudhi Sharma (2026). Molecular Phylogenetic Analysis and Species Database of Campus Flora at Hislop College, Nagpur. M.Sc. Bioinformatics Project.
+
+Rajiv Gandhi Institute of IT and Biotechnology, Pune, Maharashtra, India.
+
+GitHub: https://github.com/samrudhisharma/campus-plant-phylogeny
 
 ## Author
 
-**Samrudhi Sharma**
+Samrudhi Sharma
 
 M.Sc. Bioinformatics
 
