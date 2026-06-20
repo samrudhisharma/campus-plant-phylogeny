@@ -1,87 +1,137 @@
 # ==============================================================================
 # Molecular Phylogenetic Analysis of Plant Biodiversity at Hislop College
-#
-# Author: Samruddhi Sharma
-# Degree: M.Sc. Bioinformatics
-#
-# Description:
-# This script loads a phylogenetic tree of 59 plant species, roots the tree
-# using Cycas revoluta as an outgroup, assigns family-level metadata,
-# visualizes the tree in a circular layout using ggtree, and saves a
-# publication-quality phylogenetic tree figure.
+# Author: Samrudhi Sharma
 # ==============================================================================
 
-# ==============================================================================
-# 1. Load Required Libraries
-# ==============================================================================
+# ============================================================
+# Load Libraries
+# ============================================================
 
+library(ape)
 library(ggtree)
 library(ggplot2)
-library(ape)
-library(phytools)
 library(dplyr)
+library(scales)
 
-# ==============================================================================
-# 2. Load Phylogenetic Tree
-# ==============================================================================
+# ============================================================
+# Read Tree
+# ============================================================
 
-# Read the Newick tree file
-
-raw_tree <- read.tree(
-  "data/final_59_plant_tree.nwk"
+tree59 <- read.tree(
+  "C:/Documents/PhylogenyFlora/final_59_plant_tree.nwk"
 )
 
-# ==============================================================================
-# 3. Root Tree Using Outgroup
-# ==============================================================================
+# ============================================================
+# Root Tree
+# ============================================================
 
-rooted_tree <- root(
-  raw_tree,
+tree59 <- root(
+  tree59,
   outgroup = "Cycas_revoluta",
   resolve.root = TRUE
 )
 
-# Replace underscores with spaces for cleaner labels
+# ============================================================
+# Replace Underscores with Spaces
+# ============================================================
 
-rooted_tree$tip.label <- gsub(
+tree59$tip.label <- gsub(
   "_",
   " ",
-  rooted_tree$tip.label
+  tree59$tip.label
 )
 
-# ==============================================================================
-# 4. Family Metadata
-# ==============================================================================
+# ============================================================
+# Metadata
+# ============================================================
 
 tree_metadata <- data.frame(
-  label = rooted_tree$tip.label,
+  label = c(
+    "Acacia nilotica",
+    "Adenium obesum",
+    "Plumeria alba",
+    "Tabernaemontana divaricata",
+    "Allamanda cathartica",
+    "Alstonia scholaris",
+    "Mitragyna parvifolia",
+    "Mussaenda erythrophylla",
+    "Asystasia gangetica",
+    "Kigelia pinnata",
+    "Tecoma stans",
+    "Spathodea campanulata",
+    "Petrea volubilis",
+    "Bauhinia variegata",
+    "Tamarindus indica",
+    "Polyalthia longifolia",
+    "Ficus benghalensis",
+    "Ficus religiosa",
+    "Ficus racemosa",
+    "Grevillea robusta",
+    "Moringa oleifera",
+    "Ailanthus excelsa",
+    "Roystonea regia",
+    "Sansevieria cylindrica",
+    "Thuja occidentalis",
+    "Cassia fistula",
+    "Delonix regia",
+    "Peltophorum pterocarpum",
+    "Leucaena leucocephala",
+    "Pongamia pinnata",
+    "Samanea saman",
+    "Sesbania grandiflora",
+    "Combretum indicum",
+    "Terminalia catappa",
+    "Lagerstroemia speciosa",
+    "Psidium guajava",
+    "Syzygium cumini",
+    "Bombax ceiba",
+    "Ceiba pentandra",
+    "Citrus limon",
+    "Murraya paniculata",
+    "Mangifera indica",
+    "Hibiscus rosa-sinensis",
+    "Azadirachta indica",
+    "Bougainvillea spectabilis",
+    "Holoptelea integrifolia",
+    "Ziziphus jujuba",
+    "Guazuma tomentosa",
+    "Ficus benjamina",
+    "Gmelina arborea",
+    "Tectona grandis",
+    "Casuarina equisetifolia",
+    "Beaucarnea recurvata",
+    "Cocos nucifera",
+    "Livistona chinensis",
+    "Sansevieria trifasciata",
+    "Araucaria bidwillii",
+    "Cycas revoluta",
+    "Ixora coccinea"
+  ),
+  
   Family = c(
-    "Fabaceae", "Apocynaceae", "Simaroubaceae",
-    "Apocynaceae", "Apocynaceae", "Araucariaceae",
-    "Acanthaceae", "Meliaceae", "Fabaceae",
-    "Asparagaceae", "Malvaceae", "Nyctaginaceae",
-    "Fabaceae", "Casuarinaceae", "Malvaceae",
-    "Rutaceae", "Arecaceae", "Combretaceae",
-    "Cycadaceae", "Fabaceae", "Moraceae",
-    "Moraceae", "Moraceae", "Moraceae",
-    "Lamiaceae", "Proteaceae", "Malvaceae",
-    "Malvaceae", "Ulmaceae", "Rubiaceae",
-    "Bignoniaceae", "Lythraceae", "Fabaceae",
-    "Arecaceae", "Anacardiaceae", "Rubiaceae",
-    "Moringaceae", "Rutaceae", "Rubiaceae",
-    "Fabaceae", "Verbenaceae", "Apocynaceae",
-    "Annonaceae", "Fabaceae", "Myrtaceae",
-    "Arecaceae", "Fabaceae", "Asparagaceae",
-    "Asparagaceae", "Fabaceae", "Bignoniaceae",
-    "Myrtaceae", "Apocynaceae", "Fabaceae",
-    "Bignoniaceae", "Lamiaceae", "Combretaceae",
-    "Cupressaceae", "Rhamnaceae"
-  )
+    "Fabaceae","Apocynaceae","Apocynaceae","Apocynaceae",
+    "Apocynaceae","Apocynaceae","Rubiaceae","Rubiaceae",
+    "Acanthaceae","Bignoniaceae","Bignoniaceae","Bignoniaceae",
+    "Verbenaceae","Fabaceae","Fabaceae","Annonaceae",
+    "Moraceae","Moraceae","Moraceae","Proteaceae",
+    "Moringaceae","Simaroubaceae","Arecaceae","Asparagaceae",
+    "Cupressaceae","Fabaceae","Fabaceae","Fabaceae",
+    "Fabaceae","Fabaceae","Fabaceae","Fabaceae",
+    "Combretaceae","Combretaceae","Lythraceae","Myrtaceae",
+    "Myrtaceae","Malvaceae","Malvaceae","Rutaceae",
+    "Rutaceae","Anacardiaceae","Malvaceae","Meliaceae",
+    "Nyctaginaceae","Ulmaceae","Rhamnaceae","Malvaceae",
+    "Moraceae","Lamiaceae","Lamiaceae","Casuarinaceae",
+    "Asparagaceae","Arecaceae","Arecaceae","Asparagaceae",
+    "Araucariaceae","Cycadaceae","Rubiaceae"
+  ),
+  
+  stringsAsFactors = FALSE
 )
 
-# ==============================================================================
-# 5. Create Family Colour Palette
-# ==============================================================================
+# ============================================================
+# Family Colors
+# ============================================================
 
 family_colors <- setNames(
   scales::hue_pal()(
@@ -90,154 +140,100 @@ family_colors <- setNames(
   sort(unique(tree_metadata$Family))
 )
 
-# ==============================================================================
-# 6. Build Circular Phylogenetic Tree
-# ==============================================================================
+# ============================================================
+# Build Tree
+# ============================================================
 
 p <- ggtree(
-  rooted_tree,
-  layout = "circular",
-  branch.length = "none"
+  tree59,
+  layout = "rectangular",
+  branch.length = "none",
+  size = 0.8
 ) %<+% tree_metadata
 
-# ==============================================================================
-# 7. Create Final Visualization
-# ==============================================================================
+# ============================================================
+# Final Plot
+# ============================================================
 
-final_tree_plot <- p +
-  
-  # Family-colored tip points
+final_tree <- p +
   
   geom_tippoint(
     aes(color = Family),
-    size = 2,
-    show.legend = TRUE
+    size = 2.8
   ) +
-  
-  # Species labels
   
   geom_tiplab(
     aes(color = Family),
-    size = 2.5,
+    size = 4.4,
     fontface = "italic",
-    offset = 0.5,
+    align = TRUE,
+    linetype = 0,
+    offset = 0.10,
     show.legend = FALSE
   ) +
   
-  # Highlight major plant family clades
-  
-  geom_hilight(
-    node = findMRCA(
-      rooted_tree,
-      tips = tree_metadata$label[
-        tree_metadata$Family == "Fabaceae"
-      ]
-    ),
-    fill = "blue",
-    alpha = 0.20
-  ) +
-  
-  geom_hilight(
-    node = findMRCA(
-      rooted_tree,
-      tips = tree_metadata$label[
-        tree_metadata$Family == "Moraceae"
-      ]
-    ),
-    fill = "purple",
-    alpha = 0.20
-  ) +
-  
-  geom_hilight(
-    node = findMRCA(
-      rooted_tree,
-      tips = tree_metadata$label[
-        tree_metadata$Family == "Apocynaceae"
-      ]
-    ),
-    fill = "pink",
-    alpha = 0.20
-  ) +
-  
-  geom_hilight(
-    node = findMRCA(
-      rooted_tree,
-      tips = tree_metadata$label[
-        tree_metadata$Family == "Bignoniaceae"
-      ]
-    ),
-    fill = "green",
-    alpha = 0.20
-  ) +
-  
-  geom_hilight(
-    node = findMRCA(
-      rooted_tree,
-      tips = tree_metadata$label[
-        tree_metadata$Family == "Rubiaceae"
-      ]
-    ),
-    fill = "red",
-    alpha = 0.20
-  ) +
-  
-  # Family colors
+  xlim_tree(22) +
   
   scale_color_manual(
-    values = family_colors
-  ) +
-  
-  # Legend settings
-  
-  guides(
-    color = guide_legend(
+    values = family_colors,
+    guide = guide_legend(
       override.aes = list(
         shape = 16,
-        size = 4
+        size = 4,
+        label = NULL
       )
     )
   ) +
   
-  theme(
-    legend.position = "right",
-    legend.title = element_text(
-      face = "bold",
-      size = 10
-    ),
-    legend.text = element_text(
-      size = 8
-    )
+  labs(
+    title = "Maximum Likelihood Phylogenetic Tree of Campus Flora",
+    color = "Plant Family"
   ) +
   
-  labs(
-    title = "Phylogenetic Tree of Plant Species",
-    subtitle = "Combined Multi-gene Analysis of Hislop College Flora",
-    color = "Plant Family"
+  theme_tree2() +
+  
+  theme(
+    plot.title = element_text(
+      size = 20,
+      face = "bold",
+      hjust = 0.5
+    ),
+    
+    legend.position = "right",
+    
+    legend.title = element_text(
+      size = 15,
+      face = "bold"
+    ),
+    
+    legend.text = element_text(
+      size = 10
+    ),
+    
+    legend.key.size = unit(0.6, "cm")
   )
+# ============================================================
+# Display Plot
+# ============================================================
 
-# ==============================================================================
-# 8. Display Tree
-# ==============================================================================
+print(final_tree)
 
-print(final_tree_plot)
-
-# ==============================================================================
-# 9. Save High-Resolution Figure
-# ==============================================================================
-
-dir.create(
-  "figures",
-  showWarnings = FALSE
-)
+# ============================================================
+# Save Figure
+# ============================================================
 
 ggsave(
-  filename = "figures/final_colorful_tree.png",
-  plot = final_tree_plot,
-  width = 12,
+  filename = "final_phylogenetic_tree_landscape.png",
+  plot = final_tree,
+  path = "C:/Documents/PhylogenyFlora/figures",
+  width = 24,
   height = 12,
-  dpi = 300
+  units = "in",
+  dpi = 600,
+  bg = "white"
 )
 
-# ==============================================================================
-# End of Script
-# ==============================================================================
+cat(
+  "\nTree saved successfully to:\n",
+  "C:/Documents/PhylogenyFlora/figures/final_phylogenetic_tree_landscape.png\n"
+)
